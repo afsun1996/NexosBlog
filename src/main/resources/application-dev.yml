@@ -1,0 +1,21 @@
+server:
+  address: 8080
+
+spring:
+  datasource:
+    data-password: sunaifei123
+    data-username: root
+    url: jdbc:mysql://localhost:3306/
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: top.afsun1996.nexos
+
+
+logging:
+  level:
+    top:
+      afsun1996:
+        nexos:
+          mapper : debug

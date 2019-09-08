@@ -1,21 +1,54 @@
+# 配置端口号
 server:
   address: 8080
 
 spring:
+  # 配置数据库连接
   datasource:
     data-password: sunaifei123
     data-username: root
-    url: jdbc:mysql://localhost:3306/
+    url: jdbc:mysql://47.96.234.172:3306/
     driver-class-name: com.mysql.jdbc.Driver
+  # 配置模版引擎
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+  mvc:
+    static-path-pattern: /static/**
+  #热部署文件，页面不产生缓存，及时更新
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+  static-locations: classpath:/**
 
+#mybatis
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: top.afsun1996.nexos
 
+# redis配置
+redis:
+  database: 0
+  host: 47.96.234.172
+  port: 6379
+  password:
+  pool:
+    max-active: 8
+    max-wait: -1
+    max-idle: 8
+    min-idle: 0
+  timeout: 0
 
+# 日志
 logging:
   level:
     top:
       afsun1996:
         nexos:
           mapper : debug
+

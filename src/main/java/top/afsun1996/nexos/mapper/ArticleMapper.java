@@ -1,7 +1,9 @@
 package top.afsun1996.nexos.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import top.afsun1996.nexos.po.Article;
 
+@Mapper
 public interface ArticleMapper {
     int deleteByPrimaryKey(Integer id);
 

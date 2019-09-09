@@ -21,4 +21,9 @@ public class LoginController {
         System.out.println("hello");
         return new ModelAndView("login");
     }
+
+    @RequestMapping("blog")
+    public ModelAndView getLoginPage2(){
+        return new ModelAndView("blog");
+    }
 }

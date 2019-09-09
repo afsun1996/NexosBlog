@@ -186,4 +186,11 @@
       likes = #{likes,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectPagination" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from nexos_blog.article
+    order by id desc
+  </select>
 </mapper>

@@ -22,8 +22,8 @@ public class LoginController {
         return new ModelAndView("login");
     }
 
-    @RequestMapping("blog")
+    @RequestMapping("admin")
     public ModelAndView getLoginPage2(){
-        return new ModelAndView("blog");
+        return new ModelAndView("admin-index");
     }
 }

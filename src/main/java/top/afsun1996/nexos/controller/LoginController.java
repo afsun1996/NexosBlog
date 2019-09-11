@@ -26,4 +26,9 @@ public class LoginController {
     public ModelAndView getLoginPage2(){
         return new ModelAndView("admin-index");
     }
+
+    @RequestMapping("editor")
+    public ModelAndView getEditor(){
+        return new ModelAndView("admin-editor");
+    }
 }

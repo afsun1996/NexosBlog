@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Nexos | 写文章</title>
+    <link rel="icon" type="image/png" href="/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/i/app-icon72x72@2x.png">
+    <link rel="stylesheet" href="/css/amazeui.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/admin.css" type="text/css"/>
+    <!--  MD  -->
+<!--    <link rel="stylesheet" href="/editor/css/style.css" />-->
+    <link rel="stylesheet" href="/editor/css/editormd.css" />
+</head>
+
+<body>
+<script src="/editor/lib/jquery.min.js"></script>
+<script src="/editor/editormd.min.js"></script>
+<script type="text/javascript">
+    var testEditor;
+
+    $(function() {
+        testEditor = editormd("test-editormd", {
+            width   : "98%",
+            height  : 700,
+            syncScrolling : "single",
+            path    : "../lib/"
+        });
+    });
+</script>
+
+<div  th:replace="header :: header"></div>
+
+<div class="am-cf admin-main" style="padding-top: 0">
+
+    <!-- sidebar start -->
+    <div th:replace="navigation :: navigation"></div>
+    <!-- sidebar end -->
+    <!-- content start -->
+    <div class="admin-content">
+
+        <div class="am-cf am-padding">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">编辑</strong> / <small>新建文章</small>
+            </div>
+        </div>
+
+        <form class="am-form" style="padding-left: 10px;">
+            <legend>新增文章</legend>
+            <div class="am-form-group">
+                <label for="doc-ipt-email-1">文章标题</label>
+                <input type="email" class="" id="doc-ipt-email-1" placeholder="请输入文章标题" width="300px">
+            </div>
+            <div class="am-form-group" >
+                <label for="doc-select-1">类型</label>
+                <select id="doc-select-1">
+                    <option value="option1">技术</option>
+                    <option value="option2">日常</option>
+                    <option value="option3">其他</option>
+                </select>
+                <span class="am-form-caret"></span>
+
+                <div style="margin-top: 10px">
+                    <div class="am-form-group" style="float: left;margin-right: 15px;">
+                        <label for="tags">标签</label>
+                        <textarea id ="tags" class=""  rows="2"></textarea>
+                    </div>
+
+                      <div class="am-form-group" style="float: left;">
+                          <label for="doc-ipt-file-1">附件上传</label>
+                          <input type="file" id="doc-ipt-file-1">
+                          <p class="am-form-help">请选择要上传的文件...</p>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <div id="test-editormd"></div>
+
+        <div style="text-align: center">
+            <span>
+                <button type="button" class="am-btn am-btn-primary" style="margin-bottom: 20px;padding-left: 20px">提交</button>
+                <button type="button" class="am-btn am-btn-warning" style="margin-bottom: 20px;">预览</button>
+            </span>
+        </div>
+
+    </div>
+</div>
+    <!-- content end -->
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="/js/jquery.tagsinput.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery.tagsinput.css" />
+<script type="text/javascript">
+
+    $(function() {
+        $('#tags_1').tagsInput({width:'auto'});
+        //初始化赋值
+        $('#tags_1').importTags('张三,李四,王五');
+        $("#getInputValue").click(function(){
+            var tags_value = $("#tags_1").val();
+            console.log(tags_value);
+        });
+    });
+
+</script>
+
+<div th:replace="footer :: footer"></div>
+
+</body>
+
+</html>

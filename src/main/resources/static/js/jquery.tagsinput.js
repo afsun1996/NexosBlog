@@ -177,11 +177,11 @@
 	$.fn.tagsInput = function(options) {
     var settings = jQuery.extend({
       interactive:true,
-      defaultText:'add a tag',
+      defaultText:'标签..',
       minChars:0,
-      width:'300px',
-      height:'100px',
-      autocomplete: {selectFirst: false },
+      width:'400px',
+      height:'96',
+      autocomplete: {selectFirst: true },
       hide:true,
       delimiter: ',',
       unique:true,

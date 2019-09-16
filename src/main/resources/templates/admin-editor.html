@@ -4,18 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Nexos | 写文章</title>
-    <link rel="icon" type="image/png" href="/i/favicon.png">
+    <link rel="icon" type="image/png" href="/static/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="/i/app-icon72x72@2x.png">
-    <link rel="stylesheet" href="/css/amazeui.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/admin.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/amazeui.min.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/admin.css" type="text/css"/>
     <!--  MD  -->
 <!--    <link rel="stylesheet" href="/editor/css/style.css" />-->
-    <link rel="stylesheet" href="/editor/css/editormd.css" />
+    <link rel="stylesheet" href="/static/editor/css/editormd.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.tagsinput.css" />
 </head>
 
 <body>
-<script src="/editor/lib/jquery.min.js"></script>
-<script src="/editor/editormd.min.js"></script>
+
+<script src="/static/editor/lib/jquery.min.js"></script>
+<script src="/static/editor/editormd.min.js"></script>
+<script src="/static/js/jquery.tagsinput.js"></script>
+
+
+
 <script type="text/javascript">
     var testEditor;
 
@@ -24,7 +30,7 @@
             width   : "98%",
             height  : 700,
             syncScrolling : "single",
-            path    : "../lib/"
+            path    : "/static/lib/"
         });
     });
 </script>
@@ -45,12 +51,13 @@
             </div>
         </div>
 
-        <form class="am-form" style="padding-left: 10px;">
+        <form class="am-form" style="padding-left: 10px;width: 80%;">
             <legend>新增文章</legend>
             <div class="am-form-group">
                 <label for="doc-ipt-email-1">文章标题</label>
                 <input type="email" class="" id="doc-ipt-email-1" placeholder="请输入文章标题" width="300px">
             </div>
+
             <div class="am-form-group" >
                 <label for="doc-select-1">类型</label>
                 <select id="doc-select-1">
@@ -59,28 +66,43 @@
                     <option value="option3">其他</option>
                 </select>
                 <span class="am-form-caret"></span>
+            </div>
 
+            <div class="am-form-group" >
                 <div style="margin-top: 10px">
-                    <div class="am-form-group" style="float: left;margin-right: 15px;">
-                        <label for="tags">标签</label>
-                        <textarea id ="tags" class=""  rows="2"></textarea>
+
+                    <div style="float: left;height: auto;">
+                        <div class="am-form-group" style="margin-right: 20px">
+                            <label for="doc-ipt-image-2">文章图片</label>
+                            <input type="file" id="doc-ipt-image-2">
+                            <p class="am-form-help">请选择要上传的图片...</p>
+                        </div>
                     </div>
 
-                      <div class="am-form-group" style="float: left;">
-                          <label for="doc-ipt-file-1">附件上传</label>
-                          <input type="file" id="doc-ipt-file-1">
-                          <p class="am-form-help">请选择要上传的文件...</p>
+                    <div style="float: right;height: auto;">
+                        <div class="am-form-group" style="">
+                            <label for="tags">标签</label>
+<!--                            <textarea style="resize: none;width: 300px;" name="tags" id ="tags" class="" cols="24"  rows="1"></textarea>-->
+                            <div name="tags" id ="tags"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <div class="am-form-group" style="width: 300px;">
+                <label for="doc-ipt-file-1">附件上传</label>
+                <input type="file" id="doc-ipt-file-1">
+                <p class="am-form-help">请选择要上传的附件...</p>
+            </div>
         </form>
 
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
         <div id="test-editormd"></div>
+
 
         <div style="text-align: center">
             <span>
-                <button type="button" class="am-btn am-btn-primary" style="margin-bottom: 20px;padding-left: 20px">提交</button>
+                <button type="button" class="am-btn am-btn-primary" style="margin-bottom: 20px;padding-right: 20px">提交</button>
+                <button type="button" class="am-btn am-btn-success" style="margin-bottom: 20px;padding-right: 20px">保存</button>
                 <button type="button" class="am-btn am-btn-warning" style="margin-bottom: 20px;">预览</button>
             </span>
         </div>
@@ -88,17 +110,18 @@
     </div>
 </div>
     <!-- content end -->
-<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="/js/jquery.tagsinput.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/jquery.tagsinput.css" />
 <script type="text/javascript">
 
     $(function() {
-        $('#tags_1').tagsInput({width:'auto'});
+        $('#tags').tagsInput({
+            width:'300px',
+            onAddTag: callback_function
+
+        });
         //初始化赋值
-        $('#tags_1').importTags('张三,李四,王五');
+        // $('#tags').importTags('标签');
         $("#getInputValue").click(function(){
-            var tags_value = $("#tags_1").val();
+            var tags_value = $("#tags").val();
             console.log(tags_value);
         });
     });

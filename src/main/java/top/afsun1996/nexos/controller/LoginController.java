@@ -31,4 +31,9 @@ public class LoginController {
     public ModelAndView getEditor(){
         return new ModelAndView("admin-editor");
     }
+
+    @RequestMapping("article")
+    public ModelAndView getArticle(){
+        return new ModelAndView("articleshow");
+    }
 }

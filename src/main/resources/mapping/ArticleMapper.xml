@@ -28,7 +28,7 @@
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from article
+    from nexos_blog.article
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

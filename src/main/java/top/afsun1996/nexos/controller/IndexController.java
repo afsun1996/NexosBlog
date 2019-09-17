@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import top.afsun1996.nexos.mapper.ArticleMapper;
@@ -36,7 +37,6 @@ public class IndexController {
     */
     @RequestMapping("/")
     public ModelAndView getDefaultView(){
-
         PageHelper.startPage(0, pageSize);
         List<Article> articles = articleMapper.selectPagination();
         PageInfo<Article> pageInfo = new PageInfo(articles);
@@ -45,7 +45,13 @@ public class IndexController {
         return mv;
     }
 
-
+    @RequestMapping("/showArticle/{id}")
+    public ModelAndView getShowAritcle(@PathVariable("id")int id){
+        Article article = articleMapper.selectByPrimaryKey(id);
+        ModelAndView mv = new ModelAndView("articleshow");
+        mv.addObject("article",article);
+        return mv;
+    }
     
 
 }

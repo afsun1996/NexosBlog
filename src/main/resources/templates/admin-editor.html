@@ -101,9 +101,9 @@
 
         <div style="text-align: center">
             <span>
-                <button type="button" class="am-btn am-btn-primary" style="margin-bottom: 20px;padding-right: 20px">提交</button>
-                <button type="button" class="am-btn am-btn-success" style="margin-bottom: 20px;padding-right: 20px">保存</button>
-                <button type="button" class="am-btn am-btn-warning" style="margin-bottom: 20px;">预览</button>
+                <button onclick="commit()" type="button" class="am-btn am-btn-primary" style="margin-bottom: 20px;padding-right: 20px">提交</button>
+                <button onclick="save()" type="button" class="am-btn am-btn-success" style="margin-bottom: 20px;padding-right: 20px">保存</button>
+                <button onclick="previewer()" type="button" class="am-btn am-btn-warning" style="margin-bottom: 20px;">预览</button>
             </span>
         </div>
 
@@ -111,6 +111,10 @@
 </div>
     <!-- content end -->
 <script type="text/javascript">
+
+    // function commit(){
+    //     var title =
+    // }
 
     $(function() {
         $('#tags').tagsInput({

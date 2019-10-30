@@ -37,11 +37,7 @@
     from nexos_blog.article
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from article
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.afsun1996.nexos.po.Article" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into article
@@ -174,26 +170,70 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.afsun1996.nexos.po.Article">
-    <!--@mbg.generated-->
-    update article
-    set articleId = #{articleid,jdbcType=BIGINT},
-      author = #{author,jdbcType=VARCHAR},
-      originalAuthor = #{originalauthor,jdbcType=VARCHAR},
-      articleTitle = #{articletitle,jdbcType=VARCHAR},
-      articleContent = #{articlecontent,jdbcType=LONGVARCHAR},
-      articleTags = #{articletags,jdbcType=VARCHAR},
-      articleType = #{articletype,jdbcType=VARCHAR},
-      articleCategories = #{articlecategories,jdbcType=VARCHAR},
-      publishDate = #{publishdate,jdbcType=TIMESTAMP},
-      updateDate = #{updatedate,jdbcType=TIMESTAMP},
-      articleUrl = #{articleurl,jdbcType=VARCHAR},
-      articleTabloid = #{articletabloid,jdbcType=VARCHAR},
-      likes = #{likes,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 
-  <select id="selectPagination" resultMap="BaseResultMap">
+
+  <select id="countByCondition" parameterType="map" resultType="int">
+    select count(*) from nexos_blog.article artcle
+    <where>
+
+      <if test="title != null and title != ''">
+        articleTitle like title
+      </if>
+
+      <if test="tag != null and tag != ''">
+        ANd artcle.id in (select tag.articleId from nexos_blog.tag2article tag where tag.tagid = #{tag})
+      </if>
+
+      <if test="categories != null and categories != ''">
+        ANd artcle.articleCategories = #{categories}
+      </if>
+
+    </where>
+  </select>
+
+  <select id="selectListByCondition" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from nexos_blog.article artcle
+    <where>
+
+      <if test="title != null and title != ''">
+        articleTitle like title
+      </if>
+
+      <if test="tag != null and tag != ''">
+        ANd artcle.id in (select tag.articleId from nexos_blog.tag2article tag where tag.tagid = #{tag})
+      </if>
+
+      <if test="categories != null and categories != ''">
+        ANd artcle.articleCategories = #{categories}
+      </if>
+
+    </where>
+    order by
+
+    <choose>
+      <when test="orderParam == 1">
+        publishDate
+      </when>
+      <otherwise>
+        <choose>
+          <when test="orderParam == 2">
+            updateDate
+          </when>
+          <otherwise>
+            likes
+          </otherwise>
+        </choose>
+      </otherwise>
+    </choose>
+    <if test="orderType == 2">
+      DESC
+    </if>
+  </select>
+
+
+  <select id="selectArticleList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
     from nexos_blog.article

@@ -60,7 +60,7 @@ public class ArticleService {
     *@Author: afsun
     *@date: 2019/10/30
     */
-    public int countByCondition(Map<String,String> condition){
+    public int countByCondition(Map<String,Object> condition){
         return this.mapper.countByCondition(condition);
     }
     
@@ -71,15 +71,30 @@ public class ArticleService {
     *@Author: afsun
     *@date: 2019/10/30
     */
-    public List<Article> selectListByCondition(Map<String,String> condition){
-        int startIndex = Integer.parseInt(condition.get("startIndex"));
-        int pageSize = Integer.parseInt(condition.get("pageSize"));
+    public List<Article> selectListByCondition(Map<String,Object> condition){
+        int startIndex = (int) condition.get("startIndex");
+        int pageSize = (int) condition.get("pageSize");
         return this.mapper.selectListByCondition(condition,new RowBounds(startIndex,pageSize));
     }
 
-
+    /**
+    *@Description: 更新文章
+    *@Param:
+    *@return:
+    *@Author: afsun
+    *@date: 2019/10/30
+    */
     public int updateArticle(Article article){
         return this.mapper.updateByPrimaryKeySelective(article);
+    }
+
+    public Article getArticleDetail(int articleId){
+
+        return this.mapper.getArticleDetail(articleId);
+    }
+
+    public int addlikesById(int id){
+        return this.addlikesById(id);
     }
 
 }

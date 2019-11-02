@@ -2,6 +2,8 @@ package top.afsun1996.nexos.po;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -75,6 +77,11 @@ public class Article implements Serializable {
     * 点赞数
     */
     private Integer likes;
+
+    /**
+     * 评论
+     */
+    private List<Comments> comments;
 
     private static final long serialVersionUID = 1L;
 }

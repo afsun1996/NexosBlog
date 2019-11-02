@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sun.security.provider.MD2;
 
 /**
- *@description: //登录
+ *@description: //用户管理
  *@author: your name
  *@create: 2019-09-08 16:24
  *@version: 1.0

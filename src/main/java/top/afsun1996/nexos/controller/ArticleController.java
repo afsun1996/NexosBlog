@@ -1,18 +1,15 @@
 package top.afsun1996.nexos.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 import top.afsun1996.nexos.domain.ResultInfo;
+import top.afsun1996.nexos.po.Comments;
 import top.afsun1996.nexos.service.ArticleService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import top.afsun1996.nexos.po.Article;
+import top.afsun1996.nexos.service.CommentSerrvice;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,13 +21,15 @@ import java.util.Map;
  * @author: afsun
  * @create: 2019-10-30 11:42
  */
-@RequestMapping("/article")
+@RequestMapping(value = "/article",method= RequestMethod.POST)
 @RestController
 public class ArticleController {
 
     @Autowired
     ArticleService articleService;
 
+    @Autowired
+    CommentSerrvice commentSerrvice;
     /**
     *@Description: 保存文章
     *@Param:
@@ -40,7 +39,7 @@ public class ArticleController {
     */
     @Transactional
     @RequestMapping("/save}")
-    public ResultInfo SaveArticle(Article article){
+    public ResultInfo SaveArticle(@RequestBody Article article){
         ResultInfo resultInfo = ResultInfo.newInstance();
 
         int i = articleService.saveArticle(article);
@@ -53,6 +52,20 @@ public class ArticleController {
         // 保存成功
         resultInfo.setSuccess(true);
         resultInfo.setResultDesc("文章保存成功");
+        return resultInfo;
+    }
+    
+    /**
+    *@Description: 点赞功能
+    *@Param:
+    *@return:
+    *@Author: afsun
+    *@date: 2019/10/30
+    */
+    public ResultInfo addlikes(@RequestBody int id){
+        ResultInfo resultInfo = ResultInfo.newInstance();
+        this.articleService.addlikesById(id);
+        resultInfo.setSuccess(true);
         return resultInfo;
     }
 
@@ -74,32 +87,40 @@ public class ArticleController {
 
     /**
     *@Description: 更新
-    *@Param: 
-    *@return: 
+    *@Param:
+    *@return:
     *@Author: afsun
     *@date: 2019/10/30
     */
     @RequestMapping("/update")
-    public ResultInfo updateArticle(Article article){
+    public ResultInfo updateArticle(@RequestBody Article article){
         ResultInfo resultInfo = ResultInfo.newInstance();
         this.articleService.updateArticle(article);
         resultInfo.setSuccess(true);
         return resultInfo;
     }
 
+    @RequestMapping("/test")
+    public ResultInfo getDefaultView(@RequestBody Map<String,String> input){
+        ResultInfo resultInfo = ResultInfo.newInstance();
+        System.out.println(input);
+
+        return resultInfo;
+    }
+
     /**
-     *@Description: 默认首页
+     *@Description: 获取文章列表
      *@Param:
      *@return:
      *@Author: afsun
      *@date: 2019/9/9
      */
     @RequestMapping("/showList")
-    public ResultInfo getDefaultView(JSONObject input){
+    public ResultInfo getArticleList(@RequestBody JSONObject input){
         ResultInfo resultInfo = ResultInfo.newInstance();
         Map resultMap = new HashMap();
         // 查询页
-        Integer current = input.getInteger("current");
+        Integer current = input.getInteger("pageNum");
         // 查询页大小
         Integer pageSize = input.getInteger("pageSize");
         String title = input.getString("title");
@@ -122,6 +143,25 @@ public class ArticleController {
         resultMap.put("lists",this.articleService.selectListByCondition(condition));
         resultInfo.setResult(resultMap);
         resultInfo.setSuccess(true);
+        return resultInfo;
+    }
+    
+    /**
+    *@Description: 获取具体的文章信息
+    *@Param:
+    *@return: 
+    *@Author: afsun
+    *@date: 2019/10/31
+    */
+    @RequestMapping("/getArticleDetail")
+    public ResultInfo getArticleDetail(@RequestBody JSONObject input){
+        ResultInfo resultInfo = ResultInfo.newInstance();
+        resultInfo.setSuccess(true);
+        Integer id = input.getInteger("id");
+        List<Comments> comments = this.commentSerrvice.selectByarticleid(id);
+        Article article = this.articleService.selectArticleById(id);
+        article.setComments(comments);
+        resultInfo.setResult(article);
         return resultInfo;
     }
 

@@ -2,6 +2,7 @@ package top.afsun1996.nexos.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -39,12 +40,18 @@ public interface ArticleMapper {
     */
     Article selectByPrimaryKey(Integer id);
 
-    int countByCondition(Map<String,String> condition);
+    int countByCondition(Map<String,Object> condition);
 
-    List<Article> selectListByCondition(Map<String,String> condition);
+    List<Article> selectListByCondition(Map<String,Object> condition);
 
-    List<Article> selectListByCondition(Map<String,String> condition, RowBounds rowBounds);
+    List<Article> selectListByCondition(Map<String,Object> condition, RowBounds rowBounds);
 
     int updateByPrimaryKeySelective(Article record);
+
+    @Update("update nexos_blog.article set likes = likes+1 where articleId=#{id} ")
+    int addlikesById(int id);
+
+    @Select("select * from nexos_blog.article where id = #{id} ")
+    Article getArticleDetail(int id);
 
 }

@@ -38,7 +38,7 @@ public class ArticleController {
     *@date: 2019/10/30
     */
     @Transactional
-    @RequestMapping("/save}")
+    @RequestMapping("/save")
     public ResultInfo SaveArticle(@RequestBody Article article){
         ResultInfo resultInfo = ResultInfo.newInstance();
 

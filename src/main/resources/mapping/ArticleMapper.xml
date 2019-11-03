@@ -30,6 +30,14 @@
     articleType, articleCategories, publishDate, updateDate, articleUrl, articleTabloid, 
     likes
   </sql>
+
+  <sql id="Base_Column_Simple">
+    <!--@mbg.generated-->
+    id, articleId, author, originalAuthor, articleTitle,articleTags,
+    articleType, articleCategories, publishDate, updateDate, articleUrl, articleTabloid,
+    likes
+  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
@@ -193,7 +201,7 @@
 
   <select id="selectListByCondition" parameterType="map" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_Simple" />
     from nexos_blog.article artcle
     <where>
 

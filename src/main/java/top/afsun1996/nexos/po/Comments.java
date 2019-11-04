@@ -33,5 +33,15 @@ public class Comments implements Serializable {
      */
     private Date createtime;
 
+    /**
+     * 头像
+     */
+    private String headericon;
+
+    /**
+     * 文章名称
+     */
+    private String articlename;
+
     private static final long serialVersionUID = 1L;
 }

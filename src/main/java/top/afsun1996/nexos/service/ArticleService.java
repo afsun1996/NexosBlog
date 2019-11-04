@@ -41,6 +41,11 @@ public class ArticleService {
     public int saveArticle(Article dto){
         return mapper.insertSelective(dto);
     }
+
+
+    public int count(){
+        return this.mapper.count();
+    }
     
     /**
     *@Description: 根据id查找对应的文章
@@ -51,6 +56,33 @@ public class ArticleService {
     */
     public Article selectArticleById(int id){
         return mapper.selectByPrimaryKey(id);
+    }
+
+
+    /**
+    *@Description: 查询最多点赞数的文章
+    *@Param:
+    *@return: 
+    *@Author: afsun
+    *@date: 2019/11/4
+    */
+    public List<Article> selectMaxLikesArtcle(){
+        return this.mapper.selectMaxLikesArtcle();
+    }
+
+    /**
+     *@Description: 查询最新的文章
+     *@Param:
+     *@return:
+     *@Author: afsun
+     *@date: 2019/11/4
+     */
+    public List<Article> selectNews(){
+        return this.mapper.selectNews();
+    }
+
+    public List<Article> selectOrderViews(){
+        return this.mapper.selectOrderViews();
     }
 
     /**

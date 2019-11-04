@@ -22,6 +22,9 @@ public interface ArticleMapper {
      */
     List<Article> selectArticleList();
 
+    @Select("select count(*) from nexos_blog.article")
+    int count();
+
     /**
     *@Description: 插入文章
     *@Param:
@@ -53,5 +56,15 @@ public interface ArticleMapper {
 
     @Select("select * from nexos_blog.article where id = #{id} ")
     Article getArticleDetail(int id);
+
+    @Select("select * from nexos_blog.article order by likes limit 3;")
+    List<Article> selectMaxLikesArtcle();
+
+    @Select("select * from nexos_blog.article order by publishDate desc limit 3")
+    List<Article> selectNews();
+
+    @Select("select * from nexos_blog.article order by views limit 5")
+    List<Article> selectOrderViews();
+
 
 }

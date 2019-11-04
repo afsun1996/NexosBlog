@@ -10,10 +10,12 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="headericon" jdbcType="VARCHAR" property="headericon" />
+    <result column="articleName" jdbcType="VARCHAR" property="articlename" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, articleid, userName, email, content, createTime
+    id, articleid, userName, email, content, createTime, headericon, articleName
   </sql>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.afsun1996.nexos.po.Comments" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -34,6 +36,12 @@
       <if test="createtime != null">
         createTime,
       </if>
+      <if test="headericon != null">
+        headericon,
+      </if>
+      <if test="articlename != null">
+        articleName,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="articleid != null">
@@ -50,6 +58,12 @@
       </if>
       <if test="createtime != null">
         #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="headericon != null">
+        #{headericon,jdbcType=VARCHAR},
+      </if>
+      <if test="articlename != null">
+        #{articlename,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.afsun1996.nexos.mapper.TagsMapper">
+  <resultMap id="BaseResultMap" type="top.afsun1996.nexos.po.Tags">
+    <!--@mbg.generated-->
+    <!--@Table tags-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tagName" jdbcType="VARCHAR" property="tagname" />
+    <result column="refnum" jdbcType="INTEGER" property="refnum"/>
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, tagName, updateTime
+  </sql>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.afsun1996.nexos.po.Tags" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tags
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tagname != null">
+        tagName,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tagname != null">
+        #{tagname,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+
+  <select id="selectAllTags" resultMap="BaseResultMap">
+    select
+    id,tagName,updateTime,(select count(*) from nexos_blog.tag2article t2 where t2.tagid = t1.id) as'refnum'
+    from nexos_blog.tags t1
+  </select>
+</mapper>

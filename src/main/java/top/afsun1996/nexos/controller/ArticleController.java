@@ -10,10 +10,9 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import top.afsun1996.nexos.po.Article;
 import top.afsun1996.nexos.service.CommentSerrvice;
+import top.afsun1996.nexos.service.TagsService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @program: NexosBlog
@@ -30,6 +29,9 @@ public class ArticleController {
 
     @Autowired
     CommentSerrvice commentSerrvice;
+
+    @Autowired
+    TagsService tagsService;
     /**
     *@Description: 保存文章
     *@Param:
@@ -145,6 +147,41 @@ public class ArticleController {
         resultInfo.setSuccess(true);
         return resultInfo;
     }
+
+    /**
+    *@Description: 网站主页
+    *@Param:
+    *@return: 
+    *@Author: afsun
+    *@date: 2019/11/4
+    */
+    @RequestMapping("/mainInfo")
+    public ResultInfo getMainInfo(@RequestBody JSONObject input){
+        ResultInfo resultInfo = ResultInfo.newInstance();
+        Map resultMap = new HashMap();
+        resultInfo.setResult(resultMap);
+        // 获取最新的6个评论
+        List<Comments> comments = this.commentSerrvice.selectNew();
+
+        Set<Article> sets = new HashSet<>();
+        List<Article> hotarticles = this.articleService.selectMaxLikesArtcle();
+        for (Article dto:hotarticles){
+            dto.setType("1");
+        }
+        List<Article> newarticles = this.articleService.selectNews();
+        for (Article dto:newarticles){
+            dto.setType("2");
+        }
+
+        sets.addAll(hotarticles);
+        sets.addAll(newarticles);
+        resultMap.put("articles",sets);
+        resultMap.put("comments",comments);
+        resultMap.put("count",this.articleService.count());
+        resultMap.put("clicksort",this.articleService.selectOrderViews());
+        resultInfo.setSuccess(true);
+        return resultInfo;
+    }
     
     /**
     *@Description: 获取具体的文章信息
@@ -164,6 +201,22 @@ public class ArticleController {
         resultInfo.setResult(article);
         return resultInfo;
     }
+
+    /**
+     *@Description: 获取标签信息
+     *@Param:
+     *@return:
+     *@Author: afsun
+     *@date: 2019/10/31
+     */
+    @RequestMapping("/getTagList")
+    public ResultInfo getTagList(@RequestBody JSONObject input){
+        ResultInfo resultInfo = ResultInfo.newInstance();
+        resultInfo.setSuccess(true);
+        resultInfo.setResult(tagsService.selectAllTags());
+        return resultInfo;
+    }
+
 
 
 

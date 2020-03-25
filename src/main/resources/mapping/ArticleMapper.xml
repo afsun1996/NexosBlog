@@ -185,7 +185,7 @@
     <where>
 
       <if test="title != null and title != ''">
-        articleTitle like title
+        articleTitle like #{title}
       </if>
 
       <if test="tag != null and tag != ''">
@@ -194,6 +194,10 @@
 
       <if test="categories != null and categories != ''">
         ANd artcle.articleCategories = #{categories}
+      </if>
+
+      <if test="tagid != null and tagid != ''">
+        and artcle.id in (select tag2article.articleId  from nexos_blog.tag2article where tagid = #{tagid})
       </if>
 
     </where>
@@ -206,7 +210,7 @@
     <where>
 
       <if test="title != null and title != ''">
-        articleTitle like title
+        articleTitle like #{title}
       </if>
 
       <if test="tag != null and tag != ''">
@@ -215,6 +219,10 @@
 
       <if test="categories != null and categories != ''">
         ANd artcle.articleCategories = #{categories}
+      </if>
+
+      <if test="tagid != null and tagid != ''">
+        and artcle.id in (select tag2article.articleId  from nexos_blog.tag2article where tagid = #{tagid})
       </if>
 
     </where>

@@ -20,7 +20,7 @@ import java.util.*;
  * @author: afsun
  * @create: 2019-10-30 11:42
  */
-@RequestMapping(value = "/article",method= RequestMethod.POST)
+@RequestMapping(value = "/article")
 @RestController
 public class ArticleController {
 
